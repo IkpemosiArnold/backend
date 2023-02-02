@@ -21,8 +21,14 @@ router.post("/register", async (req, res) => {
     console.log(savedUser);
     res.status(201).json(savedUser);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
+    let errorType;
+    if (error.keyPattern) {
+      errorType = `Sorry, an account has already been created using ${error.keyPattern}`;
+    } else {
+      errorType = error;
+    }
+    console.log(errorType);
+    res.status(500).json(error.keyPattern);
   }
 });
 
