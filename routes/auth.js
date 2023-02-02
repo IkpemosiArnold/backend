@@ -7,16 +7,16 @@ const { verifyTokenAndAuthorization } = require("./verifyToken");
 dotenv.config();
 //REGISTER
 router.post("/register", async (req, res) => {
-  const newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    telephone: req.body.telephone,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.PASS_SEC
-    ).toString(),
-  });
   try {
+    const newUser = new User({
+      username: req.body.username,
+      email: req.body.email,
+      telephone: req.body.telephone,
+      password: CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.PASS_SEC
+      ).toString(),
+    });
     const savedUser = await newUser.save();
     console.log(savedUser);
     res.status(201).json(savedUser);
