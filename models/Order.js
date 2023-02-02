@@ -10,8 +10,8 @@ const OrderSchema = new mongoose.Schema(
       },
     ],
     amount: { type: Number, required: true },
-    address: { type: Object },
     status: { type: String },
+    socialLink: { type: String, required: true },
   },
   {
     timestamps: true,

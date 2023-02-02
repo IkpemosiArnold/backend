@@ -14,13 +14,6 @@ const reqStuff = {
   action: "services",
 };
 
-const options = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(reqStuff),
-};
 dotenv.config();
 mongoose
   .connect(process.env.MONGO_URL)
@@ -39,7 +32,15 @@ app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/carts", cartRoute);
 
-app.get("/jap", async (req, res) => {
+app.post("/jap", async (req, res) => {
+  console.log(req.body);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req.body),
+  };
   try {
     const apiResponse = await fetch(
       "https://justanotherpanel.com/api/v2",
