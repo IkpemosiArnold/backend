@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
         id: user._id,
         isAdmin: user.isAdmin,
       },
-      JWT_SEC,
+      process.env.JWT_SEC,
       { expiresIn: "24h" }
     );
 
