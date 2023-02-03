@@ -15,6 +15,28 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// try this function
+const testVerifyTokenFunc = async () => {
+  const authHeader = req.headers["authorization"];
+  
+  if(typeof authHeader !== "undefined" && authHeader !== undefined){
+    const token = authHeader.split(" ")[1];
+    
+    req.token = token;
+    
+    try{
+      const verify = jwt.verify(req.token, process.env.JWT_SEC);
+      req.user = verify;
+      
+      next()
+    }catch(error){
+      res.status(403).json({ message: "Invalid token" });
+    }
+  }else{
+    return res.status(401).json("You are not logged in");
+  }
+}
+
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
