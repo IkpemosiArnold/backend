@@ -7,7 +7,7 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const orderRoute = require("./routes/order");
 const cartRoute = require("./routes/cart");
-
+const app = express();
 const fetch = require("node-fetch");
 const reqStuff = {
   key: "b465dd578d19c5ad9c595d4f259f7c08",
@@ -23,7 +23,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use("/api/users", userRoute);

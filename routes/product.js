@@ -45,7 +45,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//GET USER
+//GET PRODUCT
 
 router.get("/find/:id", async (req, res) => {
   try {
@@ -57,7 +57,7 @@ router.get("/find/:id", async (req, res) => {
   }
 });
 
-//GET ALL USERS
+//GET ALL PRODUCTS
 
 router.get("/", async (req, res) => {
   const qNew = req.query.new;

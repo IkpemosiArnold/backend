@@ -3,8 +3,8 @@ const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const { verifyTokenAndAuthorization } = require("./verifyToken");
 dotenv.config();
+
 //REGISTER
 router.post("/register", async (req, res) => {
   try {
@@ -48,21 +48,19 @@ router.post("/login", async (req, res) => {
     );
     const Originalpassword = hashedPassword.toString(CryptoJS.enc.Utf8);
     if (Originalpassword !== req.body.password)
-      return res
-        .status(401)
-        .json("There is something wrong with the username or password");
+      return res.status(401).json("There is something wrong with the password");
 
     const accesstoken = jwt.sign(
       {
-        id: user.id,
+        id: user._id,
         isAdmin: user.isAdmin,
       },
-      process.env.JWT_SEC,
-      { expiresIn: "1d" }
+      JWT_SEC,
+      { expiresIn: "24h" }
     );
 
     const { password, ...others } = user._doc;
-
+    console.log(process.env.PASS_SEC);
     return res.status(200).json({ ...others, accesstoken });
   } catch (error) {
     res.status(500).json(error);
