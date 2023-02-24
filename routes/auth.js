@@ -9,7 +9,8 @@ dotenv.config();
 router.post("/register", async (req, res) => {
   try {
     const newUser = new User({
-      username: req.body.username,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       email: req.body.email,
       telephone: req.body.telephone,
       password: CryptoJS.AES.encrypt(
@@ -36,11 +37,11 @@ router.post("/register", async (req, res) => {
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ email: req.body.email });
     if (!user)
       return res
         .status(401)
-        .json("There is something wrong with the username or password");
+        .json("There is something wrong with the email or password");
 
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
