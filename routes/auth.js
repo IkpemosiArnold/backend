@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const Wallet = require("./model/wallet");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
@@ -20,6 +21,9 @@ router.post("/register", async (req, res) => {
     });
     const savedUser = await newUser.save();
     console.log(savedUser);
+    const wallet = await Wallet.create({
+      userId: savedUser._id,
+    });
     res.status(201).json(savedUser);
   } catch (error) {
     let errorType;
