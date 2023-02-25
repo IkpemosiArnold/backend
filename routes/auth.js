@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const Wallet = require("./model/wallet");
+const Wallet = require("../model/wallet");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
