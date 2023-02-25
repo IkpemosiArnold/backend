@@ -16,8 +16,8 @@ const WalletTransactionSchema = new mongoose.Schema(
 
     currency: {
       type: String,
-      required: [true, "currency is required"],
-      enum: ["NGN", "USD", "EUR", "GBP"],
+      required: true,
+      default: "NGN",
     },
 
     status: {
@@ -29,4 +29,4 @@ const WalletTransactionSchema = new mongoose.Schema(
   { timestamp: true }
 );
 
-module.exports = mongoose.model("walletTransaction", walletTransactionSchema);
+module.exports = mongoose.model("walletTransaction", WalletTransactionSchema);

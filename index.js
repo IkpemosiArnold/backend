@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const orderRoute = require("./routes/order");
 const cartRoute = require("./routes/cart");
+const walletRoute = require("./routes/wallet");
 const app = express();
 const fetch = require("node-fetch");
 const reqStuff = {
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/carts", cartRoute);
+app.use("/api/wallet", walletRoute);
 
 app.post("/jap", async (req, res) => {
   console.log(req.body);
