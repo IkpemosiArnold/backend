@@ -21,9 +21,8 @@ router.post("/register", async (req, res) => {
     });
     const savedUser = await newUser.save();
     console.log(savedUser);
-    const wallet = await Wallet.create({
-      userId: savedUser._id,
-    });
+    let wallet = createWallet(savedUser._id);
+    console.log(wallet);
     res.status(201).json(savedUser);
   } catch (error) {
     let errorType;
@@ -37,7 +36,12 @@ router.post("/register", async (req, res) => {
     res.status(500).json(errorType);
   }
 });
-
+const createWallet = async (userId) => {
+  const wallet = await Wallet.create({
+    userId,
+  });
+  return wallet;
+};
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
