@@ -24,9 +24,13 @@ router.post("/", verifyToken, async (req, res) => {
 //update wallet
 router.put("/:id", verifyToken, async (req, res) => {
   try {
-    const updatedWallet = await Wallet.findByIdAndUpdate(req.params.id, {
-      $inc: { balance: req.body },
-    });
+    const updatedWallet = await Wallet.findByIdAndUpdate(
+      req.params.id,
+      {
+        $inc: { balance: req.body },
+      },
+      { new: true }
+    );
     res.status(200).json(updatedWallet);
   } catch (error) {
     res.status(500).json(error);
