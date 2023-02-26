@@ -22,11 +22,10 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 //update wallet
-router.put("/:userId", verifyToken, async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
-    const { userId } = req.params.trim();
     const updatedWallet = await Wallet.findByIdAndUpdate(
-      { userId: userId },
+      { userId: req.params.id },
       { $inc: { balance: req.body } },
       { new: true }
     );
@@ -37,9 +36,9 @@ router.put("/:userId", verifyToken, async (req, res) => {
 });
 
 //wallet balance
-router.get("/:userId/balance", verifyToken, async (req, res) => {
+router.get("/:id/balance", verifyToken, async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.params.id;
     const wallet = await Wallet.findOne({ userId });
     res.status(200).json(wallet.balance);
   } catch (err) {
