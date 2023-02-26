@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
     });
     const savedUser = await newUser.save();
     console.log(savedUser);
-    let wallet = createWallet(savedUser._id);
+    let wallet = createWallet(savedUser._id.toString());
     console.log(wallet);
     res.status(201).json(savedUser);
   } catch (error) {
