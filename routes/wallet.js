@@ -27,7 +27,7 @@ router.put("/:id", verifyToken, async (req, res) => {
     const userId = req.params.id;
     const wallet = await Wallet.findOne({ userId });
 
-    wallet.balance = req.body;
+    wallet.balance = req.body.balance;
     const updatedWallet = await wallet.save();
 
     res.status(200).json(updatedWallet);

@@ -6,7 +6,6 @@ const WalletTransactionSchema = new mongoose.Schema(
 
     userId: {
       type: String,
-      ref: "users",
       required: true,
     },
 
