@@ -25,7 +25,7 @@ const WalletTransactionSchema = new mongoose.Schema(
       enum: ["successful", "pending", "failed"],
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("walletTransaction", WalletTransactionSchema);
