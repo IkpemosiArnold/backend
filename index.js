@@ -34,7 +34,7 @@ app.use("/api/orders", orderRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/wallet", walletRoute);
 
-app.get("/verifypayment", async (req, res) => {
+app.get("/verifypayment:reference", async (req, res) => {
   const options = {
     method: "GET",
     headers: {
@@ -43,11 +43,10 @@ app.get("/verifypayment", async (req, res) => {
   };
   try {
     const apiResponse = await fetch(
-      `https://api.paystack.co/transaction/verify/${req.body.reference}`,
+      `https://api.paystack.co/transaction/verify/${req.params.reference}`,
       options
     );
     const apiResponseJson = await apiResponse.json();
-    // await db.collection('collection').insertOne(apiResponseJson)
     res.send(apiResponseJson);
   } catch (err) {
     console.log(err);
