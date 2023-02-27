@@ -34,8 +34,28 @@ app.use("/api/orders", orderRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/wallet", walletRoute);
 
+app.get("/verifypayment", async (req, res) => {
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer sk_test_d532bbb60dd729432fb3461b2b53c55ec54e0bf7",
+    },
+  };
+  try {
+    const apiResponse = await fetch(
+      `https://api.paystack.co/transaction/verify/${req.body.reference}`,
+      options
+    );
+    const apiResponseJson = await apiResponse.json();
+    // await db.collection('collection').insertOne(apiResponseJson)
+    res.send(apiResponseJson);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong");
+  }
+});
+
 app.post("/jap", async (req, res) => {
-  console.log(req.body);
   const options = {
     method: "POST",
     headers: {
