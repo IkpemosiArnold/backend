@@ -46,4 +46,16 @@ router.get("/:id/balance", verifyToken, async (req, res) => {
     console.log(err);
   }
 });
+
+//GET user wallet transactions
+
+router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const txs = await WalletTransaction.find({ userId: req.params.id });
+
+    res.status(200).json(txs);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 module.exports = router;
