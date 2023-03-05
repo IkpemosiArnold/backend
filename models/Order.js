@@ -11,6 +11,7 @@ const OrderSchema = new mongoose.Schema(
     ],
     amount: { type: Number, required: true },
     status: { type: String },
+    caption: { type: String },
     socialLink: { type: String, required: true },
   },
   {
