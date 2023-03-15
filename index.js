@@ -38,7 +38,7 @@ app.get("/verifypayment:reference", async (req, res) => {
   const options = {
     method: "GET",
     headers: {
-      Authorization: "Bearer sk_test_d532bbb60dd729432fb3461b2b53c55ec54e0bf7",
+      Authorization: "Bearer sk_live_f5c16cb1606a5db13c61ef7feef6038848738e20",
     },
   };
   try {
