@@ -43,7 +43,7 @@ app.get("/verifypayment:reference", async (req, res) => {
   };
   try {
     const apiResponse = await fetch(
-      `https://api.flutterwave.com/v3/transactions/${req.params.reference}/verify`,
+      `https://api.flutterwave.com/v3/transactions/${req.params.reference}`,
       options
     );
     const apiResponseJson = await apiResponse.json();
