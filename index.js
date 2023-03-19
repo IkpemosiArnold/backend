@@ -38,12 +38,12 @@ app.get("/verifypayment:reference", async (req, res) => {
   const options = {
     method: "GET",
     headers: {
-      Authorization: "Bearer sk_live_f5c16cb1606a5db13c61ef7feef6038848738e20",
+      Authorization: "Bearer FLWSECK_TEST-65a5cee39771ce990bf7fc641b6485bc-X",
     },
   };
   try {
     const apiResponse = await fetch(
-      `https://api.paystack.co/transaction/verify/${req.params.reference}`,
+      `https://api.flutterwave.com/v3/transactions/${req.params.reference}/verify`,
       options
     );
     const apiResponseJson = await apiResponse.json();

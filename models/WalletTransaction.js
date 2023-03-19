@@ -11,7 +11,7 @@ const WalletTransactionSchema = new mongoose.Schema(
 
     isInflow: { type: Boolean },
 
-    paymentMethod: { type: String, default: "paystack" },
+    paymentMethod: { type: String, default: "flutterwave" },
 
     currency: {
       type: String,
