@@ -38,7 +38,7 @@ app.get("/verifypayment:reference", async (req, res) => {
   const options = {
     method: "GET",
     headers: {
-      Authorization: "Bearer FLWSECK_TEST-65a5cee39771ce990bf7fc641b6485bc-X",
+      Authorization: "Bearer FLWSECK-a9d6aa449fb1a1d1cbc72057ab18eaa0-X",
     },
   };
   try {
