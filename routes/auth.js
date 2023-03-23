@@ -45,7 +45,7 @@ const createWallet = async (userId) => {
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email.toLowerCase() });
     if (!user)
       return res
         .status(401)
