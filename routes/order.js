@@ -38,7 +38,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await newOrder.findByIdAndDelete(req.params.id);
+    await Order.findByIdAndDelete(req.params.id);
     res.status(200).json("Order has been deleted");
   } catch (error) {
     console.log(error);
