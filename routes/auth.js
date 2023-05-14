@@ -46,31 +46,49 @@ const createWallet = async (userId) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email.toLowerCase() });
-    if (!user)
+    if (!user) {
       return res
         .status(401)
         .json("There is something wrong with the email or password");
+    } else if (user) {
+      let secondKey = `"${process.env.PASS_SEC}"`;
+      const hashedPassword = CryptoJS.AES.decrypt(
+        user.password,
+        process.env.PASS_SEC
+      );
+      const otherHash = CryptoJS.AES.decrypt(user.password, secondKey);
+      console.log(process.env.PASS_SEC);
+      console.log(secondKey);
+      const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+      const otherPassword = otherHash.toString(CryptoJS.enc.Utf8);
+      console.log("Original Password " + originalPassword);
+      console.log("2nd Original Password " + otherPassword);
+      console.log("Sent Password " + req.body.password);
+      if (
+        originalPassword !== req.body.password &&
+        otherPassword !== req.body.password
+      ) {
+        return res
+          .status(401)
+          .json("There is something wrong with the password");
+      } else if (
+        originalPassword === req.body.password ||
+        otherPassword === req.body.password
+      ) {
+        const accesstoken = jwt.sign(
+          {
+            id: user._id,
+            isAdmin: user.isAdmin,
+          },
+          process.env.JWT_SEC,
+          { expiresIn: "24h" }
+        );
 
-    const hashedPassword = CryptoJS.AES.decrypt(
-      user.password,
-      process.env.PASS_SEC
-    );
-    const Originalpassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-    if (Originalpassword !== req.body.password)
-      return res.status(401).json("There is something wrong with the password");
-
-    const accesstoken = jwt.sign(
-      {
-        id: user._id,
-        isAdmin: user.isAdmin,
-      },
-      process.env.JWT_SEC,
-      { expiresIn: "24h" }
-    );
-
-    const { password, ...others } = user._doc;
-    console.log(process.env.PASS_SEC);
-    return res.status(200).json({ ...others, accesstoken });
+        const { password, ...others } = user._doc;
+        console.log(process.env.PASS_SEC);
+        return res.status(200).json({ ...others, accesstoken });
+      }
+    }
   } catch (error) {
     res.status(500).json(error);
   }
